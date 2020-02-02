@@ -4,10 +4,18 @@ const MONSTER_ATTACK = 14;
 const HEAL_VALUE = 20;
 let extra_life = true;
 
-let chosenMaxLife = 100;
+//User input prompt determine max life
+const userInputLife = prompt('enter max life for battle.', '100');
+let chosenMaxLife = parseInt(userInputLife);
+
+if (isNaN(userInputLife) || chosenMaxLife <= 0) {
+    chosenMaxLife = 100;
+}
+
 
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
+
 
 
 adjustHealthBars(chosenMaxLife);
