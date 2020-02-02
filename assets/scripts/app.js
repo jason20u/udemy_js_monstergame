@@ -15,44 +15,54 @@ adjustHealthBars(chosenMaxLife);
 
 // //bonus life function//
 function endRound() {
+    const initialPlayerHealth = currentPlayerHealth;
     const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
     currentPlayerHealth -= playerDamage;
+
+    //const initialPlayerHealth = currentPlayerHealth
+    // const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    // currentPlayerHealth -= playerDamage;
+  
     
 
+
     if (currentPlayerHealth <= 0 && extra_life === true) {
-        currentPlayerHealth = chosenMaxLife;
-        playerHealthBar.value = chosenMaxLife;
         extra_life = false;
         removeBonusLife();
-        alert(`you've used you're extra life: health reset to: ${currentPlayerHealth}`);
-    } else if (currentPlayerHealth <= 0 && extra_life === false) {
-    alert("you lost");
+        currentPlayerHealth = initialPlayerHealth;
+        playerHealthBar.value = initialPlayerHealth;
+        
+        
+        alert(`You would've been dead but bonus life saved you, health froze @ ${initialPlayerHealth}`);
+
+    }  
+
+        if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
+            alert("you won");
+        } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
+
+            alert("you lost");
+        } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
+        
+            alert('draw');
+        }
     }
-}
+
 
 function playerAttack(mode) {
+   
     let maxDamage;
     if (mode === 'ATTACK') {
         maxDamage = ATTACK_VALUE;
     } else if (mode === 'STRONG_ATTACK') {
         maxDamage = STRONG_VALUE;
     }
+
     const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth -= damage;
     
-    const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
-    currentPlayerHealth -= playerDamage;
-    
-    if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
-        alert("you won");
-    } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
-        endRound();
-        // alert("you lost");
-    } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
-        endRound();
-        // alert('draw');
-    }
-    
+    endRound();
+ 
 }
 
 function attack() {
@@ -112,6 +122,7 @@ function heal() {
     playerDamage = dealPlayerDamage(MONSTER_ATTACK);
     currentPlayerHealth -=playerDamage;
 
+    endRound();
 
 }
 
