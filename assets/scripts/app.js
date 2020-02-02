@@ -12,6 +12,16 @@ let currentPlayerHealth = chosenMaxLife;
 
 adjustHealthBars(chosenMaxLife);
 
+//reset game function
+function reset() {
+    alert(`game is resetting`);
+    currentMonsterHealth = chosenMaxLife;
+    currentPlayerHealth = chosenMaxLife;
+
+    resetGame(chosenMaxLife);
+
+
+}
 
 // //bonus life function//
 function endRound() {
@@ -24,7 +34,6 @@ function endRound() {
     // currentPlayerHealth -= playerDamage;
   
     
-
 
     if (currentPlayerHealth <= 0 && extra_life === true) {
         extra_life = false;
@@ -39,14 +48,18 @@ function endRound() {
 
         if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
             alert("you won");
+            reset();
         } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
 
             alert("you lost");
+            reset();
         } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
         
             alert('draw');
+            reset();
         }
-    }
+    
+}
 
 
 function playerAttack(mode) {
