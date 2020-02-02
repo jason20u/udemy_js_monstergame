@@ -12,6 +12,7 @@ let currentPlayerHealth = chosenMaxLife;
 adjustHealthBars(chosenMaxLife);
 
 
+
 function playerAttack(mode) {
     let maxDamage;
     if (mode === 'ATTACK') {
@@ -85,8 +86,8 @@ function heal() {
 
        increasePlayerHealth(HEAL_VALUE);
     
-        currentPlayerHealth += healthValue;
-        alert(`you were healed ${healthValue}`)
+        currentPlayerHealth += HEAL_VALUE;
+        alert(`you were healed ${HEAL_VALUE}`)
     }
     playerDamage = dealPlayerDamage(MONSTER_ATTACK);
     currentPlayerHealth -=playerDamage;
