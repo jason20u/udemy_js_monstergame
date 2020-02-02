@@ -2,6 +2,7 @@ const ATTACK_VALUE = 10;
 const STRONG_VALUE = 20;
 const MONSTER_ATTACK = 14;
 const HEAL_VALUE = 20;
+let extra_life = true;
 
 let chosenMaxLife = 100;
 
@@ -12,6 +13,22 @@ let currentPlayerHealth = chosenMaxLife;
 adjustHealthBars(chosenMaxLife);
 
 
+// //bonus life function//
+function endRound() {
+    const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    currentPlayerHealth -= playerDamage;
+    
+
+    if (currentPlayerHealth <= 0 && extra_life === true) {
+        currentPlayerHealth = chosenMaxLife;
+        playerHealthBar.value = chosenMaxLife;
+        extra_life = false;
+        removeBonusLife();
+        alert(`you've used you're extra life: health reset to: ${currentPlayerHealth}`);
+    } else if (currentPlayerHealth <= 0 && extra_life === false) {
+    alert("you lost");
+    }
+}
 
 function playerAttack(mode) {
     let maxDamage;
@@ -29,16 +46,19 @@ function playerAttack(mode) {
     if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
         alert("you won");
     } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
-        alert("you lost");
+        endRound();
+        // alert("you lost");
     } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
-        alert('draw');
+        endRound();
+        // alert('draw');
     }
     
 }
 
 function attack() {
     playerAttack('ATTACK');
-    
+}
+
     // const damage = dealMonsterDamage(ATTACK_VALUE);
     // currentMonsterHealth -= damage;
     
@@ -52,12 +72,12 @@ function attack() {
     // } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
     //     alert('draw');
     // }
-}
 
 
 
 function strongAttack() {
     playerAttack('STRONG_ATTACK');
+}
     //  damage = dealMonsterDamage(STRONG_VALUE)
     //  currentMonsterHealth -= damage;
     
@@ -70,7 +90,7 @@ function strongAttack() {
     // } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
     //     alert('draw');
     // }
-}
+
 
 function heal() {
     let healthValue;
