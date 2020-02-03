@@ -1,6 +1,6 @@
 const ATTACK_VALUE = 10;
 const STRONG_VALUE = 20;
-const MONSTER_ATTACK = 14;
+const MONSTER_VALUE = 14;
 const HEAL_VALUE = 20;
 
 
@@ -17,7 +17,7 @@ let chosenMaxLife = parseInt(userInputLife);
 let extra_life = true;
 
 let battleLog = [];    //variable created to hold the log; think array
-let storedEvent = event;
+//let storedEvent = event;
 
 
 //User input prompt determine max life
@@ -38,23 +38,25 @@ adjustHealthBars(chosenMaxLife);
 
 
 // write all activities events in vieable log
-function writeToLog(eventt, valuee) {
+function writeToLog(eventt, valuee, target, playerLogHealth, monsterLogHealth) {
     let logEntry;
 
     if (eventt === LOG_EVENT_PLAYER_ATTACK) {
         logEntry = {
             event: eventt,  //notation for storing EVENT within a variable
-            value: valuee
+            value: valuee,
+            target: monster,
+            playerLogHealth: 
         };
         battleLog.push(logEntry);
+    
+    } else if (event === LOG_EVENT_MONSTER_ATTACK) {
+        battleLog += event;
+    } else if (event === LOG_EVENT_HEAL) {
+        battleLog += event;
+    } else if (event === LOG_EVENT_GAME_OUTCOME) {
+        battleLog += event;
     }
-    // } else if (event === LOG_EVENT_MONSTER_ATTACK) {
-    //     battleLog += event;
-    // } else if (event === LOG_EVENT_HEAL) {
-    //     battleLog += event;
-    // } else if (event === LOG_EVENT_GAME_OUTCOME) {
-    //     battleLog += event;
-    // }
 
 }
 
@@ -70,6 +72,8 @@ function reset() {
     battleLog = [];
 }
 
+
+// log button function - using built-in console.log() function to print out in console the array.
 function printLog() {
  
     console.log(battleLog);
@@ -83,11 +87,11 @@ function printLog() {
 // //bonus life function//
 function endRound() {
     const initialPlayerHealth = currentPlayerHealth;
-    const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    const playerDamage = dealPlayerDamage(MONSTER_VALUE);
     currentPlayerHealth -= playerDamage;
     writeToLog(LOG_EVENT_MONSTER_ATTACK);
     //const initialPlayerHealth = currentPlayerHealth
-    // const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    // const playerDamage = dealPlayerDamage(MONSTER_VALUE);
     // currentPlayerHealth -= playerDamage;
   
     
@@ -136,6 +140,7 @@ function playerAttack(mode) {
  
 }
 
+
 function attack() {
     playerAttack(MODE_ATTACK);
 }
@@ -143,7 +148,7 @@ function attack() {
     // const damage = dealMonsterDamage(ATTACK_VALUE);
     // currentMonsterHealth -= damage;
     
-    // const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    // const playerDamage = dealPlayerDamage(MONSTER_VALUE);
     // currentPlayerHealth -= playerDamage;
     
     // if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
@@ -162,7 +167,7 @@ function strongAttack() {
     //  damage = dealMonsterDamage(STRONG_VALUE)
     //  currentMonsterHealth -= damage;
     
-    //  const playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    //  const playerDamage = dealPlayerDamage(MONSTER_VALUE);
     //  currentPlayerHealth -= playerDamage;
     //  if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
     //     alert("you won");
@@ -190,7 +195,7 @@ function heal() {
         currentPlayerHealth += HEAL_VALUE;
         alert(`you were healed ${HEAL_VALUE}`)
     }
-    playerDamage = dealPlayerDamage(MONSTER_ATTACK);
+    playerDamage = dealPlayerDamage(MONSTER_VALUE);
     currentPlayerHealth -=playerDamage;
 
     endRound();
