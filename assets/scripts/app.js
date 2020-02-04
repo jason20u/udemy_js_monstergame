@@ -115,7 +115,7 @@ function reset() {
 
 // log button function - using built-in console.log() function to print out in console the array.
 function printLog() {
- 
+    console.clear();
     console.log(battleLog);
 
 }
@@ -149,7 +149,7 @@ function endRound() {
     }  
 
         if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
-            alert(`you won, here is your log: ${battleLog}`);
+            alert(`YOU WON!`);
             reset();
         } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
 
