@@ -173,8 +173,22 @@ function reset() {
 // log button function - using built-in console.log() function to print out in console the array.
 function printLog() {
     console.clear();
-    for (i = 0; i<3; i+=1) {
+    
+    for (let i = 0; i<3; i+=1) {
         console.log('------');
+    }
+
+    // for (i=0; i < battleLog.length; i += 1) { //this for loop is same output style of for-of loop below
+    //     console.log(battleLog[i]);
+
+    // }
+
+
+    let indexCount = 0; // see 2 lines below
+    for (const logEntry of battleLog) {
+        console.log(logEntry); /// for-of loops, to keep track of the index #, added this part of the code because there is no way to know the index otherwise. log/output it manually by added this to keep track on entry in array.
+        console.log(indexCount);         //  
+        indexCount += 1;                 //
     }
     console.log(battleLog);
 
