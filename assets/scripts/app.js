@@ -98,7 +98,7 @@ function writeToLog(eventt, valuee, monsterHealth, playerHealth) {
     }
     battleLog.push(logEntry)
 
-    
+
     // if (eventt === LOG_EVENT_PLAYER_ATTACK) {
     //     logEntry = {
     //         event: eventt,  //notation for storing EVENT within a variable - objects
@@ -166,13 +166,16 @@ function reset() {
     currentPlayerHealth = chosenMaxLife;
 
     resetGame(chosenMaxLife);
-    battleLog = [];
+    //battleLog = [];
 }
 
 
 // log button function - using built-in console.log() function to print out in console the array.
 function printLog() {
     console.clear();
+    for (i = 0; i<3; i+=1) {
+        console.log('------');
+    }
     console.log(battleLog);
 
 }
@@ -302,7 +305,6 @@ function heal() {
 // function log() {
 
 // }
-
 
 
 
