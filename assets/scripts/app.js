@@ -25,6 +25,7 @@ let battleLog = [];    //variable created to hold the log; think array
 
 
 if (isNaN(userInputLife) || chosenMaxLife <= 0) {
+    
     chosenMaxLife = 100;
 }
 
@@ -42,53 +43,109 @@ function writeToLog(eventt, valuee, monsterHealth, playerHealth) {
     //function writeToLog(eventt, valuee, target, playerLogHealth, monsterLogHealth) {
     let logEntry;
 
-    if (eventt === LOG_EVENT_PLAYER_ATTACK) {
-        logEntry = {
-            event: eventt,  //notation for storing EVENT within a variable - objects
-            value: valuee,
-            target: 'MONSTER',
-            playerLogHealth: playerHealth,
-            monsterLogHealth: monsterHealth
-        };
-        // battleLog.push(logEntry); -- Moved to bottom outside if statements but inside function.  thank way y ou don't have to repeat
-    } else if (eventt === LOG_EVENT_STRONG_ATTACK) {
-        logEntry = {
-            event: eventt,  //notation for storing EVENT within a variable - objects
-            value: valuee,
-            target: 'MONSTER',
-            playerLogHealth: playerHealth,
-            monsterLogHealth: monsterHealth
-        };
-        // battleLog.push(logEntry);
-    } else if (eventt === LOG_EVENT_MONSTER_ATTACK) {
-        logEntry = {
-            event: eventt,  //notation for storing EVENT within a variable - objects
-            value: valuee,
-            target: 'PLAYER',
-            playerLogHealth: playerHealth,
-            monsterLogHealth: monsterHealth
-        };
-        // battleLog.push(logEntry);
-    } else if (eventt === LOG_EVENT_HEAL) {
-        logEntry = {
-            event: eventt,  //notation for storing EVENT within a variable - objects
-            value: valuee,
-            target: 'HealPlayer',
-            playerLogHealth: playerHealth,
-            monsterLogHealth: monsterHealth
-        };
-        // battleLog.push(logEntry);
-    } else if (eventt === LOG_EVENT_GAME_OVER) {
-        logEntry = {
-            event: eventt,  //notation for storing EVENT within a variable - objects
-            value: valuee, //for this event, might be changing valuee to represent the output from endRound()
-  
-            playerLogHealth: playerHealth,
-            monsterLogHealth: monsterHealth
-        };
-        //battleLog.push(logEntry);
+
+    //if you want to simplify an if statement block with a lot of else if; can use SWITCH-CASE statement. THIS IS AN ALTERNATIVE TO IF ELSE can stick with ifelse
+
+    switch (eventt) {
+        case LOG_EVENT_PLAYER_ATTACK:
+            logEntry = {
+                event: eventt,  //notation for storing EVENT within a variable - objects
+                value: valuee,
+                target: 'MONSTER',
+                playerLogHealth: playerHealth,
+                monsterLogHealth: monsterHealth
+            };
+            break; //make sure to do this in switch-case statements; switch case statements fall through to each case to see if true
+        case LOG_EVENT_STRONG_ATTACK:
+            logEntry = {
+                event: eventt,  //notation for storing EVENT within a variable - objects
+                value: valuee,
+                target: 'MONSTER',
+                playerLogHealth: playerHealth,
+                monsterLogHealth: monsterHealth
+            };
+            break;
+        case LOG_EVENT_MONSTER_ATTACK:
+            logEntry = {
+                event: eventt,  //notation for storing EVENT within a variable - objects
+                value: valuee,
+                target: 'PLAYER',
+                playerLogHealth: playerHealth,
+                monsterLogHealth: monsterHealth
+            };
+            break;
+        case LOG_EVENT_HEAL:
+            logEntry = {
+                event: eventt,
+                value: valuee,
+                target: 'PLAYER',
+                playerLogHealth: playerHealth,
+                monsterLogHealth: monsterHealth
+            };
+            break;
+        case LOG_EVENT_GAME_OVER:
+            logEntry = {
+                event: eventt,
+                value: valuee,
+                playerLogHealth: playerHealth,
+                monsterLogHealth: monsterHealth
+            };
+            break;
+        default:                //special command in switch-case statements, fall back code in case none of these cases are met
+            logEntry = {};
+            break;
+        
     }
-    battleLog.push(logEntry);
+    battleLog.push(logEntry)
+
+    
+    // if (eventt === LOG_EVENT_PLAYER_ATTACK) {
+    //     logEntry = {
+    //         event: eventt,  //notation for storing EVENT within a variable - objects
+    //         value: valuee,
+    //         target: 'MONSTER',
+    //         playerLogHealth: playerHealth,
+    //         monsterLogHealth: monsterHealth
+    //     };
+    //     // battleLog.push(logEntry); -- Moved to bottom outside if statements but inside function.  thank way y ou don't have to repeat
+    // } else if (eventt === LOG_EVENT_STRONG_ATTACK) {
+    //     logEntry = {
+    //         event: eventt,  //notation for storing EVENT within a variable - objects
+    //         value: valuee,
+    //         target: 'MONSTER',
+    //         playerLogHealth: playerHealth,
+    //         monsterLogHealth: monsterHealth
+    //     };
+    //     // battleLog.push(logEntry);
+    // } else if (eventt === LOG_EVENT_MONSTER_ATTACK) {
+    //     logEntry = {
+    //         event: eventt,  //notation for storing EVENT within a variable - objects
+    //         value: valuee,
+    //         target: 'PLAYER',
+    //         playerLogHealth: playerHealth,
+    //         monsterLogHealth: monsterHealth
+    //     };
+    //     // battleLog.push(logEntry);
+    // } else if (eventt === LOG_EVENT_HEAL) {
+    //     logEntry = {
+    //         event: eventt,  //notation for storing EVENT within a variable - objects
+    //         value: valuee,
+    //         target: 'HealPlayer',
+    //         playerLogHealth: playerHealth,
+    //         monsterLogHealth: monsterHealth
+    //     };
+    //     // battleLog.push(logEntry);
+    // } else if (eventt === LOG_EVENT_GAME_OVER) {
+    //     logEntry = {
+    //         event: eventt,  //notation for storing EVENT within a variable - objects
+    //         value: valuee, //for this event, might be changing valuee to represent the output from endRound()
+  
+    //         playerLogHealth: playerHealth,
+    //         monsterLogHealth: monsterHealth
+    //     };
+        //battleLog.push(logEntry);
+    // }
+    // battleLog.push(logEntry);
 
     // } else if (event === LOG_EVENT_MONSTER_ATTACK) {
     //     battleLog += event;
@@ -123,13 +180,12 @@ function printLog() {
 
 
 
-
 // //bonus life function//
 function endRound() {
     const initialPlayerHealth = currentPlayerHealth;
     const playerDamage = dealPlayerDamage(MONSTER_VALUE);
     currentPlayerHealth -= playerDamage;
-    writeToLog(LOG_EVENT_MONSTER_ATTACK, playerDamage);
+    writeToLog(LOG_EVENT_MONSTER_ATTACK, playerDamage, currentMonsterHealth,currentPlayerHealth); 
 
     //const initialPlayerHealth = currentPlayerHealth
     // const playerDamage = dealPlayerDamage(MONSTER_VALUE);
@@ -166,17 +222,17 @@ function endRound() {
 
 function playerAttack(mode) {
    
-    let maxDamage;
-    if (mode === MODE_ATTACK) {
-        maxDamage = ATTACK_VALUE;
+    let maxDamage = mode === MODE_ATTACK ? ATTACK_VALUE : STRONG_VALUE;
+    // if (mode === MODE_ATTACK) {
+    //     maxDamage = ATTACK_VALUE;
         
-    } else if (mode === MODE_STRONG_ATTACK) {
-        maxDamage = STRONG_VALUE;
-    }
+    // } else if (mode === MODE_STRONG_ATTACK) {
+    //     maxDamage = STRONG_VALUE;
+    // }
    
     const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth -= damage;
-    writeToLog(LOG_EVENT_PLAYER_ATTACK, damage);
+    writeToLog(LOG_EVENT_PLAYER_ATTACK, damage, currentMonsterHealth, currentPlayerHealth);
     endRound();
  
 }
@@ -236,8 +292,8 @@ function heal() {
         currentPlayerHealth += HEAL_VALUE;
         alert(`you were healed ${HEAL_VALUE}`)
     }
-    playerDamage = dealPlayerDamage(MONSTER_VALUE);
-    currentPlayerHealth -=playerDamage;
+    // playerDamage = dealPlayerDamage(MONSTER_VALUE);
+    // currentPlayerHealth -=playerDamage;
 
     endRound();
 
