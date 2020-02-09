@@ -200,9 +200,9 @@ function printLog() {
         console.log(`#${indexCount}`);
         
         for (const keyProperty in logEntry) {   //for-in loop within for-of loop.
-            console.log(keyProperty); //this will log name of the property
-            console.log(logEntry[keyProperty]);  // this will list the value within that key property//if you were to put logEntry.key like you normally would, it does not work in for-in loops.  you need to logEntry['some property']
-
+            // console.log(${keyProperty}); //this will log name of the property
+            // console.log(logEntry[keyProperty]);  // this will list the value within that key property//if you were to put logEntry.key like you normally would, it does not work in for-in loops.  you need to logEntry['some property']
+            console.log(`${keyProperty} => ${logEntry[keyProperty]}`); // easier to read formatting.
         }
         indexCount += 1;
     }
