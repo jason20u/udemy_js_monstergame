@@ -184,13 +184,29 @@ function printLog() {
     // }
 
 
-    let indexCount = 0; // see 2 lines below
-    for (const logEntry of battleLog) {
-        console.log(logEntry); /// for-of loops, to keep track of the index #, added this part of the code because there is no way to know the index otherwise. log/output it manually by added this to keep track on entry in array.
-        console.log(indexCount);         //  
-        indexCount += 1;                 //
+    //for-of loop:.....
+
+    // let indexCount = 0; // see 2 lines below
+    // for (const logEntry of battleLog) {
+    //     console.log(logEntry); /// for-of loops, to keep track of the index #, added this part of the code because there is no way to know the index otherwise. log/output it manually by added this to keep track on entry in array.
+    //     console.log(indexCount);         //  
+    //     indexCount += 1;                 //
+    // }
+
+
+    //for-in loop practice:....
+    let indexCount = 0;    
+    for (const logEntry of battleLog){ // for-of loop
+        console.log(`#${indexCount}`);
+        
+        for (const keyProperty in logEntry) {   //for-in loop within for-of loop.
+            console.log(keyProperty); //this will log name of the property
+            console.log(logEntry[keyProperty]);  // this will list the value within that key property//if you were to put logEntry.key like you normally would, it does not work in for-in loops.  you need to logEntry['some property']
+
+        }
+        indexCount += 1;
     }
-    console.log(battleLog);
+    //console.log(battleLog); //outputs in array format
 
 }
 
