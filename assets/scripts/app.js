@@ -174,10 +174,18 @@ function reset() {
 function printLog() {
     console.clear();
     
-    for (let i = 0; i<3; i+=1) {
-        console.log('------');
+    // for (let i = 0; i<3; i+=1) {
+    //     console.log('------');
+    // }
+
+// first look at while loop:
+    let j = 0;
+    while (j<3) {
+        console.log('----------');
+        j+= 1;
     }
 
+    
     // for (i=0; i < battleLog.length; i += 1) { //this for loop is same output style of for-of loop below
     //     console.log(battleLog[i]);
 
