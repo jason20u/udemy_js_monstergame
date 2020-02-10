@@ -180,7 +180,11 @@ function printLog() {
 
 // first look at while loop:
     let j = 0;
-    while (j<3) {
+    do {
+        console.log(j);
+        j++;
+
+    } while (j<3) {
         console.log('----------');
         j+= 1;
     }
