@@ -174,12 +174,12 @@ function reset() {
 function printLog() {
     console.clear();
     
-    // for (let i = 0; i<3; i+=1) {
-    //     console.log('------');
-    // }
+    for (let i = 0; i<3; i+=1) {
+        console.log('------');
+    }
 
-// first look at while loop:
-    let j = 0;
+// do while loop. if you want to execute code of posting to log and +1 increment up, then checking condition if j < 3. if so, then execute code again.
+    let j = 3;
     do {
         console.log(j);
         j++;
