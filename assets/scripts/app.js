@@ -21,7 +21,10 @@ let lastLoggedEntry;
 let battleLog = [];    //variable created to hold the log; think array
 //let storedEvent = event;
 
-let chosenMaxLife = getMaxLifeValues();
+let chosenMaxLife;
+
+
+
 //User input prompt determine max life
 
 function getMaxLifeValues () {
@@ -37,12 +40,46 @@ function getMaxLifeValues () {
     }
        
     
+//error handling logic
+//above if function does do the job but just to show the try-catch block, you will need it later for sure.
+try {
+    chosenMaxLife = getMaxLifeValues();
+} catch (error) {                               //if 'try' block fails, it will perfrom 'catch'
+    console.log(error);     //putting the parameter in console.log(asdf) allows it to come back as a regular output in console as opposed to a coding error. 
+    chosenMaxLife = 100;
+    alert('input error, default of 100 max life was used.');
+}
+
+            /* other ways for try-catch-finally error handling logic 
+                
+                // //error handling logic    
+                //         //above if function does do the job but just to show the try-catch block, you will need it later for sure.
+                //         try {
+                //             chosenMaxLife = getMaxLifeValues();
+                //         } catch (error) {                               //if 'try' block fails, it will perfrom 'catch'
+                //             console.log(error);     //putting the parameter in console.log(asdf) allows it to come back as a regular output in console as opposed to a coding error. 
+                //             chosenMaxLife = 100;
+                //             alert('input error, default of 100 max life was used.');
+                //             throw error;
+                //         } finally {
+                            
+                //             //code inside 'finally' will ALWAYS execute no matter what - good for cleanup - Re-Throwing an error -> i.e. rethrowing an error to send to our own analytical server for example.
+                //             throw error; //send thrown error to server for example.
+                //             //working with network requests
+                //         }
+
+                // //error handling logic - can just have try - finally
+                //         //above if function does do the job but just to show the try-catch block, you will need it later for sure.
+                //         try {
+                //             chosenMaxLife = getMaxLifeValues();
+                //         } finally {
+                //             //code inside 'finally' will ALWAYS execute no matter what - good for cleanup - Re-Throwing an error -> i.e. rethrowing an error to send to our own analytical server for example.
+                            
+                //         }
+            */
 
 
-
-
-
-
+            
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 
