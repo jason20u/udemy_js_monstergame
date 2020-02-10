@@ -11,9 +11,9 @@ const LOG_EVENT_STRONG_ATTACK = 'STRONG_ATTACK';
 const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
 const LOG_EVENT_HEAL = 'HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME_OUTCOME';
-const userInputLife = prompt('enter max life for battle.', '100');
+// const userInputLife = prompt('enter max life for battle.', '100');  //commented out because moved for Throwing Custom Errors section4
 
-let chosenMaxLife = parseInt(userInputLife);
+// let chosenMaxLife = parseInt(userInputLife);
 let extra_life = true;
 //let logEntry;
 let lastLoggedEntry; 
@@ -21,15 +21,24 @@ let lastLoggedEntry;
 let battleLog = [];    //variable created to hold the log; think array
 //let storedEvent = event;
 
-
+let chosenMaxLife = getMaxLifeValues();
 //User input prompt determine max life
 
-
-
-if (isNaN(userInputLife) || chosenMaxLife <= 0) {
+function getMaxLifeValues () {
+    const userInputLife = prompt('enter max life for battle.', '100');  //commented out because moved for Throwing Custom Errors section4
     
-    chosenMaxLife = 100;
-}
+    const parsedValueLife = parseInt(userInputLife);
+
+        if (isNaN(parsedValueLife) || parsedValueLife <= 0) {
+            throw { message: 'Invalid user input, not a number!' };
+            chosenMaxLife = 100;
+        }
+        return parsedValueLife;
+    }
+       
+    
+
+
 
 
 
