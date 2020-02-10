@@ -15,6 +15,8 @@ const userInputLife = prompt('enter max life for battle.', '100');
 
 let chosenMaxLife = parseInt(userInputLife);
 let extra_life = true;
+//let logEntry;
+let lastLoggedEntry; 
 
 let battleLog = [];    //variable created to hold the log; think array
 //let storedEvent = event;
@@ -96,7 +98,7 @@ function writeToLog(eventt, valuee, monsterHealth, playerHealth) {
             break;
         
     }
-    battleLog.push(logEntry)
+    battleLog.push(logEntry);
 
 
     // if (eventt === LOG_EVENT_PLAYER_ATTACK) {
@@ -170,9 +172,12 @@ function reset() {
 }
 
 
+
+
 // log button function - using built-in console.log() function to print out in console the array.
 function printLog() {
-    console.clear();
+    //console.clear(); // took this out because we now want to output 1 logEntry at a time and keep it there as it builds up
+
     
     for (let i = 0; i<3; i+=1) {
         console.log('------');
@@ -204,19 +209,26 @@ function printLog() {
     //     console.log(indexCount);         //  
     //     indexCount += 1;                 //
     // }
-
+    
 
     //for-in loop practice:....
-    let indexCount = 0;    
+     
+    let indexCount = 0; 
     for (const logEntry of battleLog){ // for-of loop
-        console.log(`#${indexCount}`);
-        
-        for (const keyProperty in logEntry) {   //for-in loop within for-of loop.
-            // console.log(${keyProperty}); //this will log name of the property
-            // console.log(logEntry[keyProperty]);  // this will list the value within that key property//if you were to put logEntry.key like you normally would, it does not work in for-in loops.  you need to logEntry['some property']
-            console.log(`${keyProperty} => ${logEntry[keyProperty]}`); // easier to read formatting.
+        if (!lastLoggedEntry && lastLoggedEntry !== 0 || lastLoggedEntry < indexCount) {    //we put lastLoggedEntry !== 0 because remember conditions. if condition = 0, it's falsy
+            console.log(`#${indexCount}`);
+
+            for (const keyProperty in logEntry) {   //for-in loop within for-of loop.
+                // console.log(${keyProperty}); //this will log name of the property
+                // console.log(logEntry[keyProperty]);  // this will list the value within that key property//if you were to put logEntry.key like you normally would, it does not work in for-in loops.  you need to logEntry['some property']
+                console.log(`${keyProperty} => ${logEntry[keyProperty]}`); // easier to read formatting.
+            }
+            lastLoggedEntry = indexCount;
+            break;
         }
+        
         indexCount += 1;
+        
     }
     //console.log(battleLog); //outputs in array format
 
@@ -266,8 +278,10 @@ function endRound() {
 
 
 function playerAttack(mode) {
-   
+   //ternary operator example - putting if elseif statements on one line
+
     let maxDamage = mode === MODE_ATTACK ? ATTACK_VALUE : STRONG_VALUE;
+    let logEvent = mode === MODE_ATTACK ? LOG_EVENT_PLAYER_ATTACK : LOG_EVENT_STRONG_ATTACK;
     // if (mode === MODE_ATTACK) {
     //     maxDamage = ATTACK_VALUE;
         
@@ -277,7 +291,7 @@ function playerAttack(mode) {
    
     const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth -= damage;
-    writeToLog(LOG_EVENT_PLAYER_ATTACK, damage, currentMonsterHealth, currentPlayerHealth);
+    writeToLog(logEvent, damage, currentMonsterHealth, currentPlayerHealth);
     endRound();
  
 }
